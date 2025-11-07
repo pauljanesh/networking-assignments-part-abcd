@@ -1,0 +1,21 @@
+---
+- name: Configure EC2 instance and install Docker
+  hosts: webserver
+  become: true
+
+  tasks:
+    - name: Update packages
+      ansible.builtin.package:
+        name: "*"
+        state: latest
+
+    - name: Install Docker
+      ansible.builtin.package:
+        name: docker
+        state: present
+
+    - name: Enable and start Docker
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: yes
